@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Month Calendar</title>
+    </head>
+    <body>
+        <div class="calendar">
+            <div class="month">
+                <div>
+                    <h1 id="month"></h1>
+                    <p id="date"></p>
+                </div>
+            </div>
+            <div class="weekdays">
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+                <div>Sun</div>
+            </div>
+            <div id="days" class="days"></div>
+        </div>
+        
+        <script>
+            window.onload = () => {
+                const month = document.querySelector("#month");
+                const date = document.querySelector("#date");
+                const days = document.querySelector("#days");
+                    
+                const currentMonth = new Date().getMonth();
+                const firstDay = new Date(new Date().getFullYear(), currentMonth, 1).getDay() -1;
+                const lastDay = new Date(new Date().getFullYear(), currentMonth + 1, 0).getDate();
+                    
+                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                    "October", "November", "December"];
+                    
+                    month.innerText = months[currentMonth];
+                    date.innerText = new Date().toDateString();
+                    
+                    console.log(firstDay);
+                    
+                     let result = "";
+                    
+                    for (let i = firstDay; i > 0; i--) {
+                    result += `<div class="empty"></div>`
+                    }
+                        for (let i = 1; i <= lastDay; i++) {
+                            if (i === new Date().getDate()) {
+                                result += `<div class="today">${i}</div>`
+                            } else {
+                                result += `<div>${i}</div>`
+                            }
+                        }
+                    
+                days.innerHTML = result;
+            }
+        </script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                justify-content: center;
+                display: flex;
+                font-family: 'Raleway', sans-serif;
+            }
+            .calendar {
+                margin-top: 50px;
+                background-color: #000;
+                color: #F5F5F5;
+                width: 450px;
+                height: 480px;
+                border-radius: 10px;
+            }
+            .month {
+                background-color: #445A6F;
+                border-radius: 10px 10px 0 0;
+                height: 100px;
+                justify-content: center;
+                display: flex;
+                text-align: center;
+                align-items: center;
+            }
+            .month h1 {
+                font-size: 30px;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+            .month p {
+                font-size: 16px;
+            }
+            .weekdays {
+                display: flex;
+                margin-top: 25px;
+            }
+            .weekdays div {
+                font-size: 16px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .days {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 2px;
+                margin-top: 15px;
+            }
+            .days div {
+                font-size: 14px;
+                margin: 3px;
+                width: 57px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .today {
+                background-color: #445A6F;
+                border-radius: 50%;
+            }
+        </style>
+    </body>
+</html>
